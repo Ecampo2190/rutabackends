@@ -18,7 +18,7 @@ public class CategoriaServiceImpl implements CategoriaService{
     
     @Autowired
     private CategoriaRepository categoriaRepository;
-
+//comentario git
     @Override
     @SneakyThrows
     public Categoria crearCategoria(Categoria categoria) {
