@@ -24,5 +24,6 @@ public interface ProductoService {
 
     List<Producto> obtenerProductosPorEstado(EstadoProducto estadoProducto);
 
+    List<Producto> obtenerProductosPorCategoria(Long idCategoria);
 
 }
