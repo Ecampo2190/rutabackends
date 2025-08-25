@@ -1,0 +1,82 @@
+[
+  {
+    "idProducto": 1,
+    "nombreProducto": "Microfono Blue Yeti",
+    "descripcion": "Color negro",
+    "precio": 1000.0,
+    "cantidad": 100,
+    "estadoProducto": "DISPONIBLE"
+  },
+  {
+    "idProducto": 2,
+    "nombreProducto": "Teclado Mecánico Logitech",
+    "descripcion": "Switches azules, retroiluminado",
+    "precio": 750.0,
+    "cantidad": 50,
+    "estadoProducto": "DISPONIBLE"
+  },
+  {
+    "idProducto": 3,
+    "nombreProducto": "Monitor LG UltraWide",
+    "descripcion": "34 pulgadas, resolución 2560x1080",
+    "precio": 1800.0,
+    "cantidad": 30,
+    "estadoProducto": "DISPONIBLE"
+  },
+  {
+    "idProducto": 4,
+    "nombreProducto": "Mouse inalámbrico Razer",
+    "descripcion": "Modelo Basilisk X HyperSpeed",
+    "precio": 600.0,
+    "cantidad": 80,
+    "estadoProducto": "DISPONIBLE"
+  },
+  {
+    "idProducto": 5,
+    "nombreProducto": "Audífonos Sony WH-1000XM4",
+    "descripcion": "Cancelación de ruido activa",
+    "precio": 1200.0,
+    "cantidad": 40,
+    "estadoProducto": "DISPONIBLE"
+  },
+  {
+    "idProducto": 6,
+    "nombreProducto": "Laptop Dell XPS 13",
+    "descripcion": "Intel i7, 16GB RAM, 512GB SSD",
+    "precio": 4500.0,
+    "cantidad": 25,
+    "estadoProducto": "DISPONIBLE"
+  },
+  {
+    "idProducto": 7,
+    "nombreProducto": "Tablet Samsung Galaxy Tab S8",
+    "descripcion": "Pantalla AMOLED, 128GB",
+    "precio": 2200.0,
+    "cantidad": 60,
+    "estadoProducto": "DISPONIBLE"
+  },
+  {
+    "idProducto": 8,
+    "nombreProducto": "Impresora HP LaserJet Pro",
+    "descripcion": "Impresión monocromática",
+    "precio": 900.0,
+    "cantidad": 35,
+    "estadoProducto": "DISPONIBLE"
+  },
+  {
+    "idProducto": 9,
+    "nombreProducto": "Cámara Canon EOS M50",
+    "descripcion": "Mirrorless, lente 15-45mm",
+    "precio": 3200.0,
+    "cantidad": 20,
+    "estadoProducto": "DISPONIBLE"
+  },
+  {
+    "idProducto": 10,
+    "nombreProducto": "Router TP-Link Archer AX10",
+    "descripcion": "Wi-Fi 6, triple banda",
+    "precio": 500.0,
+    "cantidad": 70,
+    "estadoProducto": "DISPONIBLE"
+  }
+]
