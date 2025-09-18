@@ -1,6 +1,10 @@
 package com.ecampo.api.rutabackends.service.impl;
 
 import com.ecampo.api.rutabackends.Entity.Categoria;
+import com.ecampo.api.rutabackends.dto.CategoriaDTO;
+import com.ecampo.api.rutabackends.excepcions.BadRequestException;
+import com.ecampo.api.rutabackends.excepcions.ResourceNotFoundException;
+import com.ecampo.api.rutabackends.mapper.CategoriaMapper;
 import com.ecampo.api.rutabackends.repository.CategoriaRepository;
 import com.ecampo.api.rutabackends.service.CategoriaService;
 
@@ -8,8 +12,9 @@ import lombok.SneakyThrows;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,53 +23,58 @@ public class CategoriaServiceImpl implements CategoriaService{
     
     @Autowired
     private CategoriaRepository categoriaRepository;
+    
+    @Autowired
+    private CategoriaMapper categoriaMapper;
 //comentario git
     @Override
-    @SneakyThrows
-    public Categoria crearCategoria(Categoria categoria) {
-        if(categoriaRepository.existsByNombreCategoria(categoria.getNombreCategoria())){
-            
+    public CategoriaDTO crearCategoria(CategoriaDTO categoriaDTO) {
+
+        if(categoriaRepository.existsByNombreCategoria(categoriaDTO.getNombreCategoria())){ 
             throw new BadRequestException("La categoría ya existe");
         }
-        return categoriaRepository.save(categoria);
+
+        Categoria categoria= categoriaMapper.toEntity(categoriaDTO);
+        Categoria nuevaCategoria= categoriaRepository.save(categoria);
+        return categoriaMapper.toDTO(nuevaCategoria);
     }
 
     @Override
-    public List<Categoria> listarCategorias() {
-       return categoriaRepository.findAll();
+    public List<CategoriaDTO> listarCategorias() {
+        List<Categoria> categorias = categoriaRepository.findAll();
+        return categorias.stream()
+                    .map(categoriaMapper::toDTO)
+                    .collect(Collectors.toList());
+
     }
 
     @Override
-    public Optional<Categoria> obtenerCategoriaPorId(Long idCategoria) {
-       return categoriaRepository.findById(idCategoria);
+    public Optional<CategoriaDTO> obtenerCategoriaPorId(Long idCategoria) {
+        Optional<Categoria> categoria=categoriaRepository.findById(idCategoria);
+        return categoria.map(categoriaMapper::toDTO);
+
     }
 
     @Override
-    public Categoria actualizarCategoria(Long idCategoria, Categoria categoria) {
-        Categoria categoriaExistente=null;
-        try {
-            categoriaExistente = categoriaRepository.findById(idCategoria)
-                                            .orElseThrow(()-> new Exception("Categoría no encontrada"));
-            categoriaExistente.setNombreCategoria(categoria.getNombreCategoria());
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return categoriaRepository.save(categoriaExistente);
+    public CategoriaDTO actualizarCategoria(Long idCategoria, CategoriaDTO categoriaDTO) {
+        Categoria categoriaExistente = categoriaRepository.findById(idCategoria)
+                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada"));
 
+        categoriaExistente.setNombreCategoria(categoriaDTO.getNombreCategoria());
+        Categoria categoriaActualizada = categoriaRepository.save(categoriaExistente);
+        return categoriaMapper.toDTO(categoriaActualizada);
         
     }
 
 
     @Override
-    @SneakyThrows
     public void eliminarCategoria(Long idCategoria) {
         
         Optional<Categoria> categoriaExistente = categoriaRepository.findById(idCategoria);
         if(categoriaExistente.isPresent()){
             categoriaRepository.delete(categoriaExistente.get());
         }else{
-            throw new BadRequestException("Categoría no encontrada");
+            throw new ResourceNotFoundException("Categoría no encontrada");
         }
 
     }

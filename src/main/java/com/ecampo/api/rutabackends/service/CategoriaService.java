@@ -2,15 +2,15 @@ package com.ecampo.api.rutabackends.service;
 
 import java.util.List;
 import java.util.Optional;
-
-import com.ecampo.api.rutabackends.Entity.Categoria;
+import com.ecampo.api.rutabackends.dto.CategoriaDTO;
+import com.ecampo.api.rutabackends.excepcions.BadRequestException;
 
 public interface CategoriaService {
 
-    Categoria crearCategoria(Categoria categoria);
-    List<Categoria> listarCategorias();
-    Optional<Categoria> obtenerCategoriaPorId(Long idCategoria);
-    Categoria actualizarCategoria(Long idCategoria, Categoria categoria);
+    CategoriaDTO crearCategoria(CategoriaDTO categoria)throws BadRequestException;
+    List<CategoriaDTO> listarCategorias();
+    Optional<CategoriaDTO> obtenerCategoriaPorId(Long idCategoria);
+    CategoriaDTO actualizarCategoria(Long idCategoria, CategoriaDTO categoria);
     void eliminarCategoria(Long idCategoria);
 
 }

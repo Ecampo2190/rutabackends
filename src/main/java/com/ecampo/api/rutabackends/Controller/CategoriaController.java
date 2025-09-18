@@ -3,6 +3,8 @@ package com.ecampo.api.rutabackends.Controller;
 import java.util.List;
 
 import java.util.Optional;
+
+import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecampo.api.rutabackends.Entity.Categoria;
+import com.ecampo.api.rutabackends.dto.CategoriaDTO;
+import com.ecampo.api.rutabackends.excepcions.ResourceNotFoundException;
 import com.ecampo.api.rutabackends.service.CategoriaService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/categorias")
@@ -25,34 +31,34 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @PostMapping
-    public ResponseEntity<Categoria> crearCategoria(@RequestBody Categoria categoria) {
-       Categoria nuevaCategoria = categoriaService.crearCategoria(categoria);
+    public ResponseEntity<CategoriaDTO> crearCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
+       CategoriaDTO nuevaCategoria = categoriaService.crearCategoria(categoriaDTO);
        return new ResponseEntity<>(nuevaCategoria, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> listarCategorias() {
-        List<Categoria> categorias = categoriaService.listarCategorias();
-        return new ResponseEntity<>(categorias, HttpStatus.OK);
+    public ResponseEntity<List<CategoriaDTO>> listarCategorias() {
+        List<CategoriaDTO> categoriasDtos = categoriaService.listarCategorias();
+        return new ResponseEntity<>(categoriasDtos, HttpStatus.OK);
     }
 
     @GetMapping("/{idCategoria}")
-    public ResponseEntity<Categoria> obtenerCategoriaPorId(@PathVariable Long idCategoria){
-        Optional<Categoria> categoria = categoriaService.obtenerCategoriaPorId(idCategoria);
+    public ResponseEntity<CategoriaDTO> obtenerCategoriaPorId(@PathVariable Long idCategoria){
+        Optional<CategoriaDTO> categoria = categoriaService.obtenerCategoriaPorId(idCategoria);
         if(categoria.isPresent()) {
             return new ResponseEntity<>(categoria.get(), HttpStatus.OK);
         }else{
-            throw new RuntimeException("Categoría no encontrada");
+            throw new ResourceNotFoundException("Categoría no encontrada");
         }
     }
 
     @PutMapping("{idCategoria}")
-    public ResponseEntity<Categoria> actualizarCategoria(@PathVariable Long idCategoria, @RequestBody Categoria categoria) {
+    public ResponseEntity<CategoriaDTO> actualizarCategoria(@PathVariable Long idCategoria, @RequestBody CategoriaDTO categoriaDTO) {
         try{
-            Categoria categoriaActualizada = categoriaService.actualizarCategoria(idCategoria, categoria);
+            CategoriaDTO categoriaActualizada = categoriaService.actualizarCategoria(idCategoria, categoriaDTO);
             if(categoriaActualizada != null) {
                 return new ResponseEntity<>(categoriaActualizada, HttpStatus.OK);
             }else{
-                throw new RuntimeException("Categoría no encontrada");
+                throw new ResourceNotFoundException("Categoría no encontrada");
             }
         }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

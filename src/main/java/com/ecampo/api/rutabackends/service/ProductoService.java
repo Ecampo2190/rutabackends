@@ -5,25 +5,26 @@ import java.util.Optional;
 
 import com.ecampo.api.rutabackends.Entity.EstadoProducto;
 import com.ecampo.api.rutabackends.Entity.Producto;
+import com.ecampo.api.rutabackends.dto.ProductoDTO;
 
 public interface ProductoService {
 
-    Producto registarProducto(Producto producto);
+    //Producto registarProducto(Producto producto);
+    ProductoDTO registarProducto(Long categoriaId, ProductoDTO producto);
 
-    List<Producto> listarProductos();
+    List<ProductoDTO> listarProductos();
 
-    Optional<Producto> buscarPorNombre(String nombre);
+    Optional<ProductoDTO> buscarPorNombre(String nombre);
 
-    Optional<Producto> buscarPorId(Long idProducto);
+    Optional<ProductoDTO> buscarPorId(Long idProducto);
     
-    Producto actualizarProducto(Long idProducto, Producto producto);
+    ProductoDTO actualizarProducto(Long idProducto, ProductoDTO producto);
 
     void eliminarProducto(Long idProducto);
 
-    Producto cambiarEstadoProducto(Long idProducto, EstadoProducto Newestado);
+    ProductoDTO cambiarEstadoProducto(Long idProducto, EstadoProducto Newestado);
 
-    List<Producto> obtenerProductosPorEstado(EstadoProducto estadoProducto);
+    List<ProductoDTO> obtenerProductosPorEstado(EstadoProducto estadoProducto);
 
-    List<Producto> obtenerProductosPorCategoria(Long idCategoria);
 
 }

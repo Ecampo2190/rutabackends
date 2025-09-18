@@ -25,7 +25,4 @@ public class Categoria {
     @Column(name="nombre_categoria", nullable = false, length=50)
     private String nombreCategoria;
     
-    @ManyToOne
-    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
-    private Categoria categoria;
 }
